@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":[["flexspi","FlexSPI configuration block definitions"],["serial_flash","Serial NOR flash boot"]]};
