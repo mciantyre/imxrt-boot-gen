@@ -14,5 +14,9 @@ version = "0.3.3"
 path = "../.."
 features = ["imxrt1180"]
 
+[dependencies.imxrt-fcb]
+version = "0.3"
+path = "../imxrt-fcb"
+
 [lib]
 path = "lib.rs"

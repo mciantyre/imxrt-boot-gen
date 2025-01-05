@@ -38,7 +38,7 @@ jobs:
       - name: Run cargo fmt
         run: cargo fmt --all -- --check
 
-  fcbs:
+  fcb-evks:
     strategy:
       matrix:
         fcb: ["imxrt1010evk-fcb", "imxrt1060evk-fcb", "imxrt1170evk-fcb", "imxrt1180evk-fcb"]
@@ -52,3 +52,14 @@ jobs:
       run: cargo test --package=${{ matrix.fcb }} --verbose
     - name: Lint the package
       run: cargo clippy --package=${{ matrix.fcb }} --target=thumbv7em-none-eabihf -- -D warnings
+
+  fcb:
+    strategy:
+      matrix:
+        mcu: ["imxrt1010", "imxrt1020", "imxrt1040", "imxrt1050", "imxrt1060", "imxrt1064", "imxrt1160", "imxrt1170", "imxrt1180"]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - run: rustup toolchain install stable --no-self-update --profile minimal --target thumbv7em-none-eabihf
+    - run: cargo test --package=imxrt-fcb --features=imxrt-boot-gen/${{ matrix.mcu }}
+    - run: cargo clippy --package=imxrt-fcb --features=imxrt-boot-gen/${{ matrix.mcu }} --target=thumbv7em-none-eabihf -- -D warnings
